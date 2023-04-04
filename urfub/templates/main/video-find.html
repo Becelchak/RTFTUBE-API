@@ -1,0 +1,24 @@
+{% extends 'main/main.html' %}
+{% load embed_video_tags %}
+
+{% block content %}
+    <script type=text/javascript>
+        function hrefFunction(form){
+                var id = form.getElementsByTagName("input")[0].value;
+                if (id === "")
+                {
+                    id = 0;
+                }
+                document.location.href = "http://127.0.0.1:8000/video/watch/" + id;
+                return false;
+            }
+    </script>
+    <form id="video_form" onsubmit="return hrefFunction(this);" method="get">
+      <label for="name"> Введите ID видео</label>
+      <input type="text" pattern="\d*" id="name" placeholder="Котики" name="videoID">
+    </form>
+    <p>
+        <input type="submit" value="Отправить" form="video_form">
+        <input type="reset" value="Очистить" form="video_form">
+    </p>
+{% endblock %}

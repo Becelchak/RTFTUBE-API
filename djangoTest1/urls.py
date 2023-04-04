@@ -1,10 +1,11 @@
-from django.urls import path
+from django.urls import path, include
+from django.conf import settings
+from django.conf.urls.static import static
+from django.contrib import admin
 from . import views
 
 urlpatterns = [
-    path('', views.main),
-    path('video/<int:id>', views.getVideo),
-    path('video/<int:id>/likes',views.getLikes),
-    path('video/<int:id>/comments',views.getComments),
-    path('video/upload/',views.postVideo)
-]
+    path('admin/', admin.site.urls),
+    path('', include('urfub.urls')),
+
+] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)

@@ -1,0 +1,11 @@
+{% extends 'main/main.html' %}
+{% load embed_video_tags %}
+
+{% block content %}
+    {% for item in video %}
+        <h3>{{ item.video_name }}</h3>
+
+        {% video item.url '740x370'%}
+
+    {% endfor %}
+{% endblock %}

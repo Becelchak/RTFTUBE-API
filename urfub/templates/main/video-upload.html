@@ -1,0 +1,18 @@
+{% extends 'main/main.html' %}
+{% load embed_video_tags %}
+
+{% block content %}
+    <form id="video_form" onsubmit="return hrefFunction(this);" method="get">
+      <div>
+          <label for="url"> Введите URL видео</label>
+          <input type="text" pattern="\d*" id="url" placeholder="https://www.youtube.com/watch?" name="videoID">
+          <p>
+              <input type="submit" value="Отправить" form="video_form">
+              <input type="reset" value="Очистить" form="video_form">
+          </p>
+      </div>
+        <h5>ИЛИ</h5>
+        <label for="file"> Загрузите файл</label>
+        <input type="file" id="file" accept="video/mp4">
+    </form>
+{% endblock %}
