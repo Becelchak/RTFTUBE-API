@@ -12,22 +12,22 @@
     <header>
                 <h3>URFUB</h3>
         {% if user.is_authenticated %}
-            <a href="http://127.0.0.1:8000/user/logout"><img class="login-ic" src="{% static 'main/img/logout-icon.png' %}" width="40px" height="40px"></a>
+            <a href={% url 'logout_user' %}><img class="login-ic" src="{% static 'main/img/logout-icon.png' %}" width="40px" height="40px"></a>
         {% else %}
-            <a href="http://127.0.0.1:8000/user/login"><img class="login-ic" src="{% static 'main/img/login-icon.png' %}" width="40px" height="40px"></a>
+            <a href={% url 'login_user' %}><img class="login-ic" src="{% static 'main/img/login-icon.png' %}" width="40px" height="40px"></a>
         {% endif %}
     </header>
         <aside>
             <h1 class = 'navig'>Навигация</h1>
             <ul class = "Pages">
                 <li>
-                    <a href="http://127.0.0.1:8000/"><i>Главная страница</i></a>
+                    <a href={% url 'main' %}><i>Главная страница</i></a>
                 </li>
                 <li>
-                    <a href="http://127.0.0.1:8000/video/"><i>Найти видео</i></a>
+                    <a href={% url 'findVideo' %}><i>Найти видео</i></a>
                 </li>
                 <li>
-                    <a href="http://127.0.0.1:8000/video/upload"><i>Загрузить видео</i></a>
+                    <a href={% url 'uploadVideo' %}><i>Загрузить видео</i></a>
                 </li>
             </ul>
         </aside>
