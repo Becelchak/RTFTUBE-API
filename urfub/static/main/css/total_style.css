@@ -1,3 +1,6 @@
+body{
+
+}
 header{
     margin: 0;
     background:no-repeat fixed;
@@ -26,6 +29,10 @@ header h3{
 
     text-shadow: black 1px 1px 0, black -1px -1px 0,
                  black -1px 1px 0, black 1px -1px 0;
+}
+
+header .login-ic{
+    left: 96%;
 }
 
 aside{
@@ -70,4 +77,45 @@ aside h1.navig {
 
     margin-left: 43%;
 
+}
+
+.main-vid{
+    text-transform: uppercase;
+    line-height: 50px;
+    text-align: center;
+}
+
+.new-video .video-column ul li{
+    display: flex;
+    margin-left: 30%;
+
+}
+
+.new-video ul h3{
+    text-align: center;
+}
+.Video-prew p i {
+    line-height: 20px;
+    text-align: center;
+}
+.attention mark{
+    color: red;
+    text-transform: uppercase;
+    line-height: 40px;
+    background-color: yellow;
+}
+
+.log-form{
+    width: 30%;
+    position: relative;
+    left: 35%;
+}
+
+.alert-message .error{
+    text-align: center;
+    color: #E74E36;
+    background-color:  #C4E5E3;
+    width: 30%;
+    position: relative;
+    left: 35%;
 }

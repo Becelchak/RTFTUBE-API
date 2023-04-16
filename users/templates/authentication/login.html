@@ -1,0 +1,30 @@
+{% extends 'main/main.html' %}
+
+{% block content %}
+    {% if messages %}
+        {%  for message in messages %}
+            <div class="alert-message" role="alert">
+                <p class="error">
+                {{ message }}
+                </p>
+            </div>
+        {% endfor %}
+    {% endif %}
+<form class="log-form" method="post">
+{% csrf_token %}
+    <div class="mb-3">
+    <label for="InputName" class="form-label">Username</label>
+    <input type="text" class="form-control" id="InputName" name="username" aria-describedby="nameHelp">
+    <div id="nameHelp" class="form-text">example222</div>
+    </div>
+  <div class="mb-3">
+    <label for="InputPassword" class="form-label">Password</label>
+    <input type="password" class="form-control" id="InputPassword" name="password">
+  </div>
+  <div class="mb-3 form-check">
+    <input type="checkbox" class="form-check-input" id="Check">
+    <label class="form-check-label" for="Check">Check me out</label>
+  </div>
+  <button type="submit" class="btn btn-primary">Submit</button>
+</form>
+{% endblock %}

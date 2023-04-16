@@ -7,5 +7,7 @@ from . import views
 urlpatterns = [
     path('admin/', admin.site.urls),
     path('', include('urfub.urls')),
+    path('user/', include('django.contrib.auth.urls')),
+    path('user/', include('users.urls'))
 
 ] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)

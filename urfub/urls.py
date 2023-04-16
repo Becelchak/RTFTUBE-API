@@ -5,7 +5,7 @@ from django.contrib import admin
 from . import views
 
 urlpatterns = [
-    path('',views.main),
+    path('',views.main, name='main'),
     path('video/', views.findVideo),
     path('video/watch/<int:id>', views.getVideo),
     path('video/<int:id>/scores', views.getLikes),

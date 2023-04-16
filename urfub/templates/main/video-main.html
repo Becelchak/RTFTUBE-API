@@ -2,10 +2,19 @@
 {% load embed_video_tags %}
 
 {% block content %}
-    {% for item in video %}
-        <h3>{{ item.video_name }}</h3>
+    <div class="new-video">
+    <h1 class="main-vid">!Новое для вас!</h1>
+    <section class="video-column">
+        <ul>
+            {% for item in video %}
+            <h3>{{ item.video_name }}</h3>
 
-        {% video item.url '740x370'%}
+            <li>
+            {% video item.url '740x370'%}
+            </li>
 
-    {% endfor %}
+        {% endfor %}
+        </ul>
+    </section>
+    </div>
 {% endblock %}

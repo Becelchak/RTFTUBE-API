@@ -37,7 +37,8 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'urfub',
-    'embed_video'
+    'embed_video',
+    'users'
 ]
 
 MIDDLEWARE = [
