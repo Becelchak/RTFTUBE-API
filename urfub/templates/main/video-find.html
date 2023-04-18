@@ -4,12 +4,13 @@
 {% block content %}
     <script type=text/javascript>
         function hrefFunction(form){
-                var id = form.getElementsByTagName("input")[0].value;
-                if (id === "")
+                var Id = form.getElementsByTagName("input")[0].value;
+                if (Id === "")
                 {
-                    id = 0;
+                    Id = 0;
                 }
-                document.location.href = "http://127.0.0.1:8000/video/watch/" + id;
+                {#document.location.href = {% url "watchVideo" id=Id %};#}
+                document.location.href =  '/video/watch/' + Id;
                 return false;
             }
     </script>
