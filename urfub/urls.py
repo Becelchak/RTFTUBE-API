@@ -8,7 +8,8 @@ urlpatterns = [
     path('',views.main, name='main'),
     path('video/', views.findVideo, name='findVideo'),
     path('video/watch/<int:id>', views.getVideo, name='watchVideo'),
-    path('video/<int:id>/scores', views.getLikes),
-    path('video/<int:id>/comments', views.getComments),
-    path('video/upload/', views.postVideo, name='uploadVideo')
+    path('video/liked/<int:id>', views.getLikes, name='likes'),
+    path('video/disloked/<int:id>', views.getDislikes, name='dislikes'),
+    path('video/upload/', views.postVideo, name='uploadVideo'),
+    path('stream/<int:id>', views.getStreamVideo, name='stream')
 ]

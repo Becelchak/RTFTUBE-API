@@ -21,4 +21,4 @@ def login_user(request):
 def logout_user(request):
     logout(request)
     messages.success(request, ('Произведен выход из аккаунта.'))
-    return redirect('main')
+    return redirect('login_user')

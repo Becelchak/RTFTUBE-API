@@ -85,12 +85,6 @@ aside h1.navig {
     text-align: center;
 }
 
-.new-video .video-column ul li{
-    display: flex;
-    margin-left: 30%;
-
-}
-
 .new-video ul h3{
     text-align: center;
 }
@@ -119,3 +113,47 @@ aside h1.navig {
     position: relative;
     left: 35%;
 }
+
+.vid{
+    display: flex;
+    margin-left: 16%;
+}
+
+.vid-single{
+    display: flex;
+    margin-left: 23%;
+}
+
+.unknown-attention{
+    text-align: center;
+    color: #F75E20;
+    text-transform: uppercase;
+    font-size: 60px;
+}
+
+.descript-vid{
+    text-align: center;
+    margin-right: 4%;
+}
+
+.vid-item{
+    list-style: none;
+    margin-bottom: 25px;
+    padding: 25px;
+}
+
+.name-vid{
+    text-align: center;
+    margin-right: 5%;
+    font-size: 40px;
+    text-decoration: underline;
+}
+
+.grades p{
+    margin: 0;
+    text-align: center;
+}
+
+/*.grades button{*/
+/*    border: 0;*/
+/*}*/

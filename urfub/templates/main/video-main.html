@@ -1,5 +1,6 @@
 {% extends 'main/main.html' %}
-{% load embed_video_tags %}
+{% load static %}
+<link rel="script" href="{% static 'main/JS/Test.js' %}">
 
 {% block content %}
     <div class="new-video">
@@ -7,13 +8,40 @@
     <section class="video-column">
         <ul>
             {% for item in video %}
-            <h3>{{ item.video_name }}</h3>
-
-            <li>
-            {% video item.url '740x370'%}
+            <li class="vid-item">
+                <h3 class="name-vid">{{ item.title }}</h3>
+                    <p class="vid">
+                        <video
+                        id="my-video"
+                        class="video-js"
+                        controls
+                        preload="auto"
+                        width="1280"
+                        height="768"
+                        data-setup="{}">
+                            <source src="{% url 'stream' item.id %}" type="video/mp4" />
+                            <source src="{% url 'stream' item.id %}" type="video/webm" />
+                        </video>
+                    </p>
+                    <div class="descript-vid">
+                        <section class="grades">
+                            <form action="{% url 'likes' item.id %}">
+                                <button id='like' onclick="" class="like" type="button" style=""><img src="{% static 'main/img/like.png' %}" height="20" width="20" alt="like"></button> <span class="like-count">{{ item.likes }}</span>
+                            </form>
+                            <form action="{% url 'dislikes' item.id %}">
+                                <button onclick="" class="dislike" type="button" style=""><img src="{% static 'main/img/dislike.png' %}" height="20" width="20" alt="dislike"></button> <span class="dislike-count">{{ item.dislike }}</span>
+                            </form>
+                        </section>
+                        {% for author in authors.items %}
+                            {% if author.0 == 1 %}
+                            <strong class="author">Автор: {{ author.1 }}</strong>
+                            {% endif %}
+                        {% endfor %}
+                        <br>
+                        <span class="date">Опубликовано: {{ item.publish_date }}</span>
+                    </div>
+            {% endfor %}
             </li>
-
-        {% endfor %}
         </ul>
     </section>
     </div>

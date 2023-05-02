@@ -1,18 +1,34 @@
 {% extends 'main/main.html' %}
-{% load embed_video_tags %}
 
 {% block content %}
+    {% if user.is_authenticated %}
     <form id="video_form" onsubmit="return hrefFunction(this);" method="get">
+    <div>
+        <label for="title"> Введите название видео</label>
+          <input type="text" pattern="\d*" id="title" placeholder="Котики" name="videoеTitle">
+          <p>
+              <input type="reset" value="Очистить" form="video_form">
+          </p>
+    </div>
       <div>
           <label for="url"> Введите URL видео</label>
-          <input type="text" pattern="\d*" id="url" placeholder="https://www.youtube.com/watch?" name="videoID">
+          <input type="text" pattern="\d*" id="url" placeholder="https://www.youtube.com/watch?" name="videoURL">
           <p>
-              <input type="submit" value="Отправить" form="video_form">
               <input type="reset" value="Очистить" form="video_form">
           </p>
       </div>
         <h5>ИЛИ</h5>
-        <label for="file"> Загрузите файл</label>
-        <input type="file" id="file" accept="video/mp4">
+        <div>
+            <label for="file">Загрузите файл</label>
+            <br>
+            <strong><p>Не более 100 MB</p></strong>
+            <input type="file" id="file" accept="video/mp4">
+        </div>
+    <input type="submit" value="Отправить" form="video_form">
     </form>
+    {% else %}
+            <p class="unknown-attention">
+                <strong>Зайдите в аккаунт!</strong>
+            </p>
+    {% endif %}
 {% endblock %}
