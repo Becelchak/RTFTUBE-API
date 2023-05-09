@@ -31,7 +31,6 @@ cur = conn_db.cursor()
 def main(request):
     vid = videos.objects.all()[0:3]
     authors = {}
-    url = {}
     for video in vid:
         video.url_storage = s3.generate_presigned_url(ClientMethod='get_object',
                                         Params={
@@ -39,7 +38,7 @@ def main(request):
                                             'Key': video.key
                                         })
         authors[video.id] = cur.execute("SELECT username FROM auth_user WHERE id == {0}".format(video.author_id)).fetchone()[0]
-    return render(request, 'main/video-main.html', context={'video' : vid, 'authors' : authors, "urls":url})
+    return render(request, 'main/video-main.html', context={'video' : vid, 'authors' : authors})
 
 
 def findVideo(request):

@@ -1,5 +1,4 @@
 {% extends 'main/main.html' %}
-{% load embed_video_tags %}
 {% load static %}
 <link rel="script" href="{% static 'main/JS/Test.js' %}">
 
@@ -49,8 +48,8 @@
                             <br>
                             <span class="date">Опубликовано: {{ item.publish_date }}</span>
                         </div>
-            {% endfor %}
             </li>
+        {% endfor %}
         </ul>
     </section>
     </div>
