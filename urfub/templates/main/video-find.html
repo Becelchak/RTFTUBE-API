@@ -17,12 +17,17 @@
     {% if user.is_authenticated %}
         <form id="video_form" onsubmit="return hrefFunction(this);" method="get">
           <label for="name"> Введите ID видео</label>
-          <input type="text" pattern="\d*" id="name" placeholder="Котики" name="videoID">
+          <input type="text" pattern="\d*" id="name" placeholder="1" name="videoID">
         </form>
         <p>
             <input type="submit" value="Отправить" form="video_form">
             <input type="reset" value="Очистить" form="video_form">
         </p>
+        <form id="max-id" method="GET" action="{% url 'getIDRange' %}">
+            <p><label>Минимальное ID: {{ minID }}</label></p>
+            <p><label>Максимальное ID: {{ maxID }}</label></p>
+            <button class="find-id" type="submit">Определить границы ID</button>
+        </form>
         <p class="attention"><mark>!</mark> <i>В случае пустого значения или значения 0, будет выбрано случайное видео</i> <mark>!</mark></p>
     {% else %}
             <p class="unknown-attention">

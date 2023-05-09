@@ -9,7 +9,8 @@ urlpatterns = [
     path('video/', views.findVideo, name='findVideo'),
     path('video/watch/<int:id>', views.getVideo, name='watchVideo'),
     path('video/liked/<int:id>', views.getLikes, name='likes'),
-    path('video/disloked/<int:id>', views.getDislikes, name='dislikes'),
+    path('video/disliked/<int:id>', views.getDislikes, name='dislikes'),
     path('video/upload/', views.postVideo, name='uploadVideo'),
-    path('stream/<int:id>', views.getStreamVideo, name='stream')
+    # path('stream/<int:id>', views.getStreamVideo, name='stream'),
+    path('video/IDRange/', views.getIDRange, name='getIDRange'),
 ]

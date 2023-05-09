@@ -1,0 +1,15 @@
+{% extends 'main/main.html' %}
+
+{% block content %}
+    {%  if form.errors %}
+        <div class="alert-message" role="alert">
+                <p class="error">Что-то не так с вашей формой регистрации</p>
+            </div>
+    {% endif %}
+<form class="reg-form" method="post" action="{% url 'register_user' %}">
+{% csrf_token %}
+    <h2>Регистрация пользователя</h2>
+    {{ form.as_p }}
+    <button type="submit" class="btn btn-primary">Зарегестрироваться</button>
+</form>
+{% endblock %}

@@ -81,7 +81,7 @@ aside h1.navig {
 
 .main-vid{
     text-transform: uppercase;
-    line-height: 50px;
+    line-height: 52px;
     text-align: center;
 }
 
@@ -105,6 +105,13 @@ aside h1.navig {
     left: 35%;
 }
 
+.reg-form{
+    width: 80%;
+    height: 80%;
+    position: relative;
+    left: 30%;
+}
+
 .alert-message .error{
     text-align: center;
     color: #E74E36;
@@ -112,6 +119,7 @@ aside h1.navig {
     width: 30%;
     position: relative;
     left: 35%;
+    font-size: 20px;
 }
 
 .vid{
@@ -154,6 +162,25 @@ aside h1.navig {
     text-align: center;
 }
 
-/*.grades button{*/
-/*    border: 0;*/
+.grades button{
+    border: 0;
+}
+
+.regist-link{
+    text-align: center;
+    padding: 15px;
+}
+
+/*.error-reg {*/
+/*    margin-left: 40%;*/
+/*    font-size: 20px;*/
+/*    color: #68071D;*/
+/*    background-color: #F6C9D3;*/
+/*    width: max-content;*/
 /*}*/
+
+.Video-prew form{
+    justify-content:center;
+    align-items:center;
+    margin: 10px;
+}

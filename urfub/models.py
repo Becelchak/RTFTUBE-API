@@ -3,13 +3,16 @@ from django.conf import settings
 from django.db import models
 from django.core.validators import FileExtensionValidator
 from django.contrib.auth.models import User
+from embed_video.fields import EmbedVideoField
 
 class videos(models.Model):
     id = models.IntegerField(primary_key=True)
-    stream = models.FileField(
-        upload_to='video/',
-        validators=[FileExtensionValidator(['mp4'])]
-    )
+    # stream = models.FileField(
+    #     upload_to='video/',
+    #     validators=[FileExtensionValidator(['mp4'])]
+    # )
+    key = models.CharField(max_length=100, null=False, default='Atom')
+    url_storage = EmbedVideoField(null=False, default='11')
     title = models.CharField(max_length=100, null=False)
     likes = models.IntegerField(default=0)
     dislike = models.IntegerField(default=0)

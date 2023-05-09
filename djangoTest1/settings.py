@@ -11,6 +11,7 @@ https://docs.djangoproject.com/en/4.1/ref/settings/
 """
 import os
 from pathlib import Path
+from urfub.yandex_s3_storage import *
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
@@ -38,6 +39,7 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     'urfub',
     'embed_video',
+    'storages',
     'users'
 ]
 
@@ -124,4 +126,12 @@ STATIC_URL = '/static/'
 # https://docs.djangoproject.com/en/4.1/ref/settings/#default-auto-field
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
+
+# ----Yandex s3----
+# DEFAULT_FILE_STORAGE = 'yandex_s3_storage.ClientDocsStorage'
+# YANDEX_CLIENT_DOCS_BUCKET_NAME = 'rtf-video-bucket'
+# AWS_ACCESS_KEY_ID = os.getenv('AWS_ACCESS_KEY')
+# AWS_SECRET_ACCESS_KEY = os.getenv('AWS_SECRET_ACCESS_KEY')
+# AWS_S3_ENDPOINT_URL = 'https://storage.yandexcloud.net'
+# AWS_S3_REGION_NAME = 'storage'
 
