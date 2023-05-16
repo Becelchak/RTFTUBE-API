@@ -21,12 +21,10 @@
                     <h3 class="name-vid">{{ item.title }}</h3>
                         <p class="vid">
                             <video
-                            id="my-video"
                             controls
-                            preload="auto"
                             width="1280"
                             height="768">
-                                <source src={{ item.url_storage }}>
+                                <source type="video/mp4" src={{ item.url_storage }}>
                             </video>
                         </p>
                         <div class="descript-vid">

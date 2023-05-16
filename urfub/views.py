@@ -11,7 +11,6 @@ from typing import IO, Generator
 MAX_UPLOAD_SIZE = 214958080
 
 import random
-import boto3
 import sqlite3
 from urfub.yandex_s3_storage import *
 
@@ -19,12 +18,19 @@ from django.http import HttpResponse, HttpResponseNotFound, StreamingHttpRespons
 from django.views.decorators.csrf import csrf_exempt
 from django.shortcuts import render, get_object_or_404, redirect
 from .models import videos
-from pathlib import Path
 from django.urls import reverse
 from django.contrib import messages
 
+
 conn_db = sqlite3.connect('db.sqlite3', uri=True, check_same_thread=False)
 cur = conn_db.cursor()
+
+my_session = boto3.session.Session()
+s3 = my_session.client('s3',
+                       endpoint_url=ENDPOINT_URL,
+                       aws_access_key_id=ACCESS_KEY,
+                       region_name=REGION_NAME,
+                       aws_secret_access_key=SECRET_ACCESS_KEY)
 
 
 # Вывод главной страницы
@@ -33,11 +39,14 @@ def main(request):
     authors = {}
     for video in vid:
         video.url_storage = s3.generate_presigned_url(ClientMethod='get_object',
-                                        Params={
-                                            'Bucket': BUCKET_NAME,
-                                            'Key': video.key
-                                        })
+                                                      Params={
+                                                          'Bucket': BUCKET_NAME,
+                                                          'Key': video.key
+                                                      })
+        # video.save()
+        # video.url_storage = URL_ACCESS + video.key
         authors[video.id] = cur.execute("SELECT username FROM auth_user WHERE id == {0}".format(video.author_id)).fetchone()[0]
+
     return render(request, 'main/video-main.html', context={'video' : vid, 'authors' : authors})
 
 
@@ -176,23 +185,20 @@ def postVideo(request):
     if request.method == "POST":
         user = request.user
         title = request.POST['videoеTitle']
-        # videourl = request.POST['videoURL']
-        # if len(videourl) > 0:
-        #     video = YouTube(videourl)
-        #     stream = video.streams.first().download()
-        #     video_model = videos.objects.create(
-        #         stream=stream,
-        #         title=title,
-        #         author=user
-        #     )
         if len(request.FILES) > 0:
             stream = request.FILES["video"]
+            bytes = stream.read()
+            key = stream.name.replace(' ', '_')
             if stream.size > MAX_UPLOAD_SIZE:
                 messages.error(request, ("Слишком большой файл"))
             else:
+                request.method = "PUT"
+                s3.put_object(Bucket=BUCKET_NAME,
+                              Key=key,
+                              Body=bytes)
                 videos.objects.create(
-                    stream=stream,
                     title=title,
+                    key=key,
                     author=user
                 )
                 messages.success(request, ("Видео {0} успешно загружено".format(title)))
