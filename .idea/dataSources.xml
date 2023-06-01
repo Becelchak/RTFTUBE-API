@@ -29,5 +29,12 @@
       <jdbc-url>jdbc:sqlite:C:\Users\kost4\sites\djangoTest1\db.sqlite3</jdbc-url>
       <working-dir>$ProjectFileDir$</working-dir>
     </data-source>
+    <data-source source="LOCAL" name="Glask$RTFAPI" uuid="39a4198e-defe-421f-8a76-f079cf8ba057">
+      <driver-ref>mysql.8</driver-ref>
+      <synchronize>true</synchronize>
+      <jdbc-driver>com.mysql.cj.jdbc.Driver</jdbc-driver>
+      <jdbc-url>jdbc:mysql://localhost:3306/Glask$RTFAPI</jdbc-url>
+      <working-dir>$ProjectFileDir$</working-dir>
+    </data-source>
   </component>
 </project>

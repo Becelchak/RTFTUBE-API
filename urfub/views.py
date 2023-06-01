@@ -12,6 +12,7 @@ MAX_UPLOAD_SIZE = 214958080
 
 import random
 import sqlite3
+import pymysql
 from urfub.yandex_s3_storage import *
 
 from django.http import HttpResponse, HttpResponseNotFound, StreamingHttpResponse, HttpResponseRedirect
@@ -21,8 +22,14 @@ from .models import videos
 from django.urls import reverse
 from django.contrib import messages
 
+import boto3
 
-conn_db = sqlite3.connect('db.sqlite3', uri=True, check_same_thread=False)
+
+# conn_db = sqlite3.connect('db.sqlite3', uri=True, check_same_thread=False)
+conn_db = pymysql.connect(database=os.environ['DB_NAME'],
+                          user='root',
+                          password=os.environ['DB_PASSWORD'],
+                          host='127.0.0.1')
 cur = conn_db.cursor()
 
 my_session = boto3.session.Session()
@@ -45,7 +52,8 @@ def main(request):
                                                       })
         # video.save()
         # video.url_storage = URL_ACCESS + video.key
-        authors[video.id] = cur.execute("SELECT username FROM auth_user WHERE id == {0}".format(video.author_id)).fetchone()[0]
+        cur.execute("SELECT username FROM auth_user WHERE id = {0}".format(video.author_id))
+        authors[video.id] = cur.fetchone()[0]
 
     return render(request, 'main/video-main.html', context={'video' : vid, 'authors' : authors})
 
@@ -54,8 +62,10 @@ def findVideo(request):
     return render(request, 'main/video-find.html')
 
 def getIDRange(request):
-    minID = cur.execute("SELECT MIN(id) FROM urfub_videos").fetchone()[0]
-    maxID = cur.execute("SELECT MAX(id) FROM urfub_videos").fetchone()[0]
+    cur.execute("SELECT MIN(id) FROM urfub_videos")
+    minID = cur.fetchone()[0]
+    cur.execute("SELECT MAX(id) FROM urfub_videos")
+    maxID = cur.fetchone()[0]
     return render(request,'main/video-find.html', context={'maxID':maxID, 'minID':minID})
 
 
@@ -110,7 +120,8 @@ def getIDRange(request):
 #     return response
 def getVideo(request, id:int = 0) -> HttpResponse:
     if request.method == "GET":
-        count_id = cur.execute("SELECT COUNT(*) FROM urfub_videos WHERE id > 0").fetchone()[0]
+        cur.execute("SELECT COUNT(*) FROM urfub_videos WHERE id > 0")
+        count_id = cur.fetchone()[0]
         if count_id == 0 or id > count_id:
             return HttpResponseNotFound("Видео с таким ID не существует", status=404)
         if id == 0:
@@ -124,7 +135,8 @@ def getVideo(request, id:int = 0) -> HttpResponse:
                                             'Bucket': BUCKET_NAME,
                                             'Key': vid.key
                                         })
-        author = cur.execute("SELECT username FROM auth_user WHERE id == {0}".format(vid.author_id)).fetchone()[0]
+        cur.execute("SELECT username FROM auth_user WHERE id = {0}".format(vid.author_id))
+        author = cur.fetchone()[0]
         return render(request, "main/video.html", context={'video' : vid, 'author' : author})
 
 
@@ -193,13 +205,16 @@ def postVideo(request):
                 messages.error(request, ("Слишком большой файл"))
             else:
                 request.method = "PUT"
+                cur.execute("SELECT MAX(id) FROM urfub_videos")
+                nextID = cur.fetchone()[0] + 1
                 s3.put_object(Bucket=BUCKET_NAME,
                               Key=key,
                               Body=bytes)
                 videos.objects.create(
+                    id=nextID,
                     title=title,
                     key=key,
-                    author=user
+                    author=user,
                 )
                 messages.success(request, ("Видео {0} успешно загружено".format(title)))
         else:

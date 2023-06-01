@@ -12,7 +12,7 @@ class videos(models.Model):
     #     validators=[FileExtensionValidator(['mp4'])]
     # )
     key = models.CharField(max_length=100, null=False, default='Atom')
-    url_storage = EmbedVideoField(null=False, default='11')
+    url_storage = EmbedVideoField(max_length=500,null=False, default="https://youtu.be/gKVXaMeazAQ")
     title = models.CharField(max_length=100, null=False)
     likes = models.IntegerField(default=0)
     dislike = models.IntegerField(default=0)
